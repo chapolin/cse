@@ -1,0 +1,13 @@
+<ion-view view-title="Jogos">
+  <ion-content>
+    <div class="list" ng-repeat="sumula in sumulas">
+      <a class="item" href="#">
+        <h2>{{sumula.adversario}}</h2>
+        <p>{{sumula.data}}</p>
+      </a>
+    </div>
+    <div class="padding">
+      <a class="button icon-right button-block ion-plus button-dark" href="#/tab/game-1">Criar jogo</a>
+    </div>
+  </ion-content>
+</ion-view>

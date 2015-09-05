@@ -1,0 +1,35 @@
+<ion-view view-title="Jogos">
+  <ion-content>
+    <div class="list">
+      <div class="padding">
+        <h4 class="title"><dfn>Dados da Partida</dfn></h4>
+      </div>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Local da partida</span>
+        <input type="text" placeholder="Flamenguinho">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Date</span>
+        <input type="date">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Adversário</span>
+        <input type="text" placeholder="Barcelona">
+      </label>
+      <label class="item item-input item-stacked-label item-toggle">
+        <div style="padding-left:0" class="padding">
+          Amistoso?
+        </div>
+        <label class="toggle toggle-dark">
+         <input type="checkbox">
+         <div class="track">
+           <div class="handle"></div>
+         </div>
+        </label>
+      </label>
+    </div>
+    <div class="padding">
+      <a class="button icon-right button-block ion-android-done-all button-dark" ng-click="salvar(jogadores)">Salvar</a>
+    </div>
+  </ion-content>
+</ion-view>
