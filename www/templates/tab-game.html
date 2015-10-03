@@ -1,13 +1,22 @@
 <ion-view view-title="Jogos">
   <ion-content>
-    <div class="list" ng-repeat="sumula in sumulas">
-      <a class="item" href="#">
-        <h2>{{sumula.adversario}}</h2>
-        <p>{{sumula.data}}</p>
-      </a>
-    </div>
-    <div class="padding">
-      <a class="button icon-right button-block ion-plus button-dark" href="#/tab/game-1">Criar jogo</a>
-    </div>
+    <center>
+      <ion-spinner icon="android" id="loading-games"></ion-spinner>
+    </center>
+    <ion-refresher pulling-text="Recarregar Jogos" on-refresh="doRefresh()"></ion-refresher>
+    <ion-list>
+      <ion-item class="item-remove-animate item-icon-right" ng-repeat="game in games" href="#/tab/game-details/{{game._id}}">
+        <h2>{{game.versus}}</h2>
+        <p>{{game.date}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="remove(game)">
+          Apagar Jogo
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
   </ion-content>
+  <button class="button button-float button-dark" ng-click="go('tab.game-1')">
+    <i class="icon ion-plus"></i>
+  </button>
 </ion-view>

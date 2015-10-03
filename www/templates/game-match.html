@@ -6,22 +6,26 @@
       </div>
       <label class="item item-input item-stacked-label">
         <span class="input-label">Local da partida</span>
-        <input type="text" placeholder="Flamenguinho">
+        <input type="text" placeholder="Flamenguinho" ng-model="match.place">
       </label>
       <label class="item item-input item-stacked-label">
-        <span class="input-label">Date</span>
-        <input type="date">
+        <span class="input-label">Data do jogo</span>
+        <input type="date" ng-model="match.date">
       </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Hora do jogo</span>
+        <input type="time" ng-model="match.time">
+      </label>      
       <label class="item item-input item-stacked-label">
         <span class="input-label">Adversário</span>
-        <input type="text" placeholder="Barcelona">
+        <input type="text" placeholder="Barcelona" ng-model="match.versus">
       </label>
       <label class="item item-input item-stacked-label item-toggle">
         <div style="padding-left:0" class="padding">
           Amistoso?
         </div>
         <label class="toggle toggle-dark">
-         <input type="checkbox">
+         <input type="checkbox" ng-model="match.friendly">
          <div class="track">
            <div class="handle"></div>
          </div>
@@ -29,7 +33,7 @@
       </label>
     </div>
     <div class="padding">
-      <a class="button icon-right button-block ion-android-done-all button-dark" ng-click="salvar(jogadores)">Salvar</a>
+      <a class="button icon-right button-block ion-android-done-all button-dark" ng-click="salvar(match)">Salvar</a>
     </div>
   </ion-content>
 </ion-view>

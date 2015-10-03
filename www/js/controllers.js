@@ -1,47 +1,114 @@
 angular.module('starter.controllers', [])
 
-.controller('GameCtrl', function($scope, $http, Game) {
-  $scope.sumulas = Game.all();
+.controller('HomeCtrl', function($scope) {})
 
-  Game.allJogadores($scope, $http);
+.controller('GameCtrl', function($scope, $http, $ionicPopup, $state, Game) {
+  $scope.$on('$ionicView.enter', function() {
+    Game.all($scope, $http);
+    Game.saveInformation("players", null);
+    Game.saveInformation("match", null);
+  });
+  
+  $scope.go = function (path) {
+    $state.go(path);
+  };
+
+  $scope.doRefresh = function() {
+    Game.all($scope, $http);
+  };
+
+  $scope.remove = function(game) {
+    $ionicPopup.confirm({
+      title: "Atenção!",
+      template: "Você realmente deseja excluir este jogo?",
+      cancelText: "Não",
+      okText: "Sim",
+      okType: "button-dark"
+    }).then(function(res) {
+      if(res) {
+        Game.remove($http, $state, game);
+      }
+    });
+  };
+})
+
+.controller('GameStep1Ctrl', function($scope, $state, $http, $ionicPopup, Game) {
+  $scope.$on('$ionicView.enter', function() {
+    Game.allJogadores($scope, $http);
+
+    Game.saveInformation("players", null);
+  });
 
   $scope.doRefresh = function() {
     Game.allJogadores($scope, $http);
   };
 
-  $scope.salvar = function($scope) {
-    console.log($scope);
+  $scope.goGameStep2 = function(players) {
+    var isOk = false;
+
+    Game.saveInformation("players", players);
+
+    for(var i in gameData.players) {
+      if(gameData.players[i].checked == true) {
+        isOk = true;
+
+        break;
+      }
+    }
+
+    if(isOk) {
+      $state.go("tab.game-2");
+    } else {
+      showAlert();
+    }
+  };
+
+  var showAlert = function() {
+    $ionicPopup.alert({
+      title: "Atenção!",
+      template: "Selecione os jogadores para a partida :)",
+      okText: "Ok, Entendi!",
+      okType: "button-dark"
+    });
   };
 })
 
-.controller('HomeCtrl', function($scope) {})
+.controller('GameStep2Ctrl', function($scope, $state, $http, $ionicPopup, Game) {
+  $scope.$on('$ionicView.enter', function() {
+    $scope.match = {};
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+    Game.saveInformation("match", null);
+  });
 
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
+  $scope.salvar = function(match) {
+    Game.saveInformation("match", match);
+
+    if(isInvalid(gameData.match.place) || isInvalid(gameData.match.date) || 
+       isInvalid(gameData.match.time) || isInvalid(gameData.match.versus)) {
+      
+      warningFields();
+    } else {
+      Game.sendInformations($http, $state);
+    }
+  };
+
+  var warningFields = function() {
+    $ionicPopup.alert({
+      title: "Atenção!",
+      subTitle: "Os campos abaixo, são obrigatórios:",
+      template: "- Local da partida<br />- Data do jogo<br />- Hora do jogo<br />- Adversário",
+      okText: "Ok, Entendi!",
+      okType: "button-dark"
+    });
   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('GameDetailsCtrl', function($scope, $http, $stateParams, Game) {
+  Game.get($scope, $http, $stateParams.gameId);
 })
 
 .controller('AccountCtrl', function($scope) {
   $scope.settings = {
     enableFriends: true
   };
-})
-
-.controller('TodosCtrl', function($scope, $http) {
-   
-  
 });
