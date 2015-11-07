@@ -1,4 +1,7 @@
-var gameData = {}, HOST_API = "http://cse.futbol";
+var gameData = {}, 
+	HOST_API = "http://cse.futbol"
+	MESSAGE_REGISTER = "Cadastro realizado com sucesso!",
+	MESSAGE_ALTERATION = "Cadastro modificado com sucesso!";
 
 var formatDate = function(date) {
 	date = new Date(date);
@@ -16,4 +19,12 @@ var isInvalid = function(value) {
 	}
 
 	return false;
+};
+
+Storage.prototype.setObj = function(key, obj) {
+	return this.setItem(key, JSON.stringify(obj));
+};
+
+Storage.prototype.getObj = function(key) {
+	return JSON.parse(this.getItem(key));
 };

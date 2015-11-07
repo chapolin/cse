@@ -1,0 +1,33 @@
+<ion-view view-title="Cadastro"> 
+  <ion-content>
+    <div class="card card-success hide">
+      <div class="item item-text-wrap card-success-data"></div>
+    </div>
+    <ion-spinner icon="lines" class="loading-register hide"></ion-spinner>
+  	<div class="list register-fields">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Nome</span>
+        <input type="text" placeholder="João" name="userName" value="{{registerData.name}}">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Sobrenome</span>
+        <input type="text" placeholder="Silva" name="userLastName" value="{{registerData.lastName}}">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">E-mail</span>
+        <input type="text" placeholder="joao@silva.com" name="userEmail" value="{{registerData.email}}">
+      </label>
+      <div class="row">
+        <div class="col">
+            <button class="button button-dark icon-left ion-forward" ng-click="register()">
+              {{labelData.register}}
+            </button>
+        </div>
+        <div class="col">
+          <button class="button button-dark{{labelData.icon}}" ng-click="skipRegister()">
+            {{labelData.later}}
+          </button>
+        </div>
+      </div>
+  </ion-content>
+</ion-view>

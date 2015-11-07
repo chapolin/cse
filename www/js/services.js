@@ -12,7 +12,7 @@ angular.module('starter.services', [])
     },
     all: function($scope, $http) {
       $http.get(HOST_API + '/games').success(function(data) {
-        if(!data[0]._id) {
+        if(data[0] && !data[0]._id) {
           data = [];
         }
 
