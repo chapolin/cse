@@ -67,6 +67,19 @@ angular.module('starter.services', [])
       $http.delete(HOST_API + '/game/' + $game._id).then(function() {
         $state.reload("tab.game");
       });
+    },
+    doScore: function($http, $scope, $state, callback, params) {
+      $http.post(HOST_API + '/score', params).then(function(response) {
+        callback();
+
+        for(var i in $scope.jogadores) {
+          $scope.jogadores[i].checked = false;
+        }
+
+        $scope.ownScore = true;
+
+        $state.go("tab.game-details", {gameId: params.game});
+      });
     }
   };
 });

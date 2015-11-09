@@ -1,0 +1,33 @@
+<ion-view view-title="Marcar gol">
+  <ion-content>
+    <ion-refresher pulling-text="Recarregar Jogadores" on-refresh="doRefresh()"></ion-refresher>
+    <center>
+      <ion-spinner icon="android" id="loading-players"></ion-spinner>
+    </center>
+    <div class="padding">
+      <h4 class="title center"><dfn>Quem fez o gol?</dfn></h4>
+    </div>
+    <label class="item item-input item-stacked-label item-toggle">
+		<div style="padding-left:0" class="padding">
+  			Gol Nosso?
+		</div>
+		<label class="toggle toggle-dark">
+ 			<input type="checkbox" ng-model="ownScore">
+ 			<div class="track">
+   				<div class="handle"></div>
+ 			</div>
+		</label>
+	</label>
+     <ul class="list">
+      <li class="item item-checkbox" ng-repeat="jogador in jogadores">
+        {{jogador.name}}
+         <label class="checkbox right">
+           <input type="checkbox" ng-model="jogador.checked" ng-checked="jogador.checked">
+         </label>      
+      </li>
+    </ul>
+    <div class="padding">
+      <a class="button icon-right button-block ion-android-done button-dark" ng-click="doScore(jogadores, ownScore)">Marcar gol</a>
+    </div>
+  </ion-content>
+</ion-view>

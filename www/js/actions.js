@@ -1,4 +1,5 @@
 var gameData = {}, 
+	scoreData = {}, 
 	HOST_API = "http://cse.futbol"
 	MESSAGE_REGISTER = "Cadastro realizado com sucesso!",
 	MESSAGE_ALTERATION = "Cadastro modificado com sucesso!";

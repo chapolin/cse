@@ -107,6 +107,60 @@ angular.module('starter.controllers', [])
   Game.get($scope, $http, $stateParams.gameId);
 })
 
+.controller('ScoreCtrl', function($scope, $http, $ionicPopup, $state, $stateParams, Game) {  
+  $scope.ownScore = true;
+
+  Game.allJogadores($scope, $http);
+
+  $scope.doRefresh = function() {
+    Game.allJogadores($scope, $http);
+  };
+
+  $scope.doScore = function(players, ownScore) {
+    var player = null, game = $stateParams.gameId;
+
+    for(var i in players) {
+      if(players[i].checked == true) {
+        player = players[i]._id;
+
+        break;
+      }
+    }
+
+    if(player || !ownScore) {
+      if(!ownScore) {
+        player = "000000000000";
+      }
+
+      Game.doScore($http, $scope, $state, scoreOk, {
+        game: game,
+        player: player,
+        from: ownScore === true ? "own" : "versus",
+        score: "+"
+      });
+    } else {
+      showAlert();
+    }
+  };
+
+  var showAlert = function() {
+    $ionicPopup.alert({
+      title: "Atenção!",
+      template: "Selecione o jogador que marcou o gol",
+      okText: "Ok, Entendi!",
+      okType: "button-dark"
+    });
+  };
+
+  var scoreOk = function() {
+    $ionicPopup.alert({
+      title: "Gol marcado!",
+      okText: "OK",
+      okType: "button-dark"
+    });
+  };
+})
+
 .controller('AccountCtrl', function($scope) {
   $scope.settings = {
     enableFriends: true

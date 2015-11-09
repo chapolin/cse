@@ -10,13 +10,18 @@ navigation history that also transitions its views in and out.
     <ion-nav-view name="tab-home"></ion-nav-view>
   </ion-tab>
 
-  <!-- Dashboard Tab -->
+  <!-- Games Tab -->
   <ion-tab title="Jogos" icon-off="ion-clipboard" icon-on="ion-clipboard" href="#/tab/game">
     <ion-nav-view name="tab-game"></ion-nav-view>
   </ion-tab>
 
   <!-- Register Tab -->
-  <ion-tab title="CADASTRO" icon-off="ion-person" icon-on="ion-person" href="#/tab/register?fromMenu=true" class="tab-register">
+  <ion-tab title="Cadastro" icon-off="ion-person" icon-on="ion-person" href="#/tab/register?fromMenu=true" class="tab-register">
     <ion-nav-view name="tab-register"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Score Tab -->
+  <ion-tab title="Marcar gol" icon-off="ion-clipboard" icon-on="ion-clipboard" href="#/tab/score" class="hide">
+    <ion-nav-view name="tab-score"></ion-nav-view>
   </ion-tab>
 </ion-tabs>

@@ -90,6 +90,16 @@ angular.module('starter', ['ionic','ionic.service.core','ngCordova','ionic.servi
     }
   })
 
+  .state('tab.score', {
+    url: '/score/:gameId',
+    views: {
+      'tab-score': {
+        templateUrl: 'templates/tab-score.html',
+        controller: 'ScoreCtrl'
+      }
+    }
+  })
+
   .state('tab.register', {
     url: '/register',
     views: {
@@ -101,5 +111,4 @@ angular.module('starter', ['ionic','ionic.service.core','ngCordova','ionic.servi
   })
 
   $urlRouterProvider.otherwise('/tab/register');
-
 });
