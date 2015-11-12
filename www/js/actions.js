@@ -1,6 +1,7 @@
 var gameData = {}, 
 	scoreData = {}, 
-	HOST_API = "http://cse.futbol"
+	playerData = [],
+	HOST_API = "http://cse.futbol",
 	MESSAGE_REGISTER = "Cadastro realizado com sucesso!",
 	MESSAGE_ALTERATION = "Cadastro modificado com sucesso!";
 
@@ -28,4 +29,23 @@ Storage.prototype.setObj = function(key, obj) {
 
 Storage.prototype.getObj = function(key) {
 	return JSON.parse(this.getItem(key));
+};
+
+var getJogadores = function($http, callback, callbackFinal, callbackError) {
+	if(playerData.length === 0) {
+		$http.get(HOST_API + '/players').success(function(jogadores) {
+			console.log("Pegou do servico");
+			
+			playerData = jogadores;
+			callback(jogadores);
+		}).finally(callbackFinal);  
+	} else {
+		console.log("Pegou do localStorage");
+		
+		callback(playerData);
+		
+		if(callbackFinal) {
+			callbackFinal();
+		}
+	}      
 };

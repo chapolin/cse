@@ -3,42 +3,13 @@ angular.module('starter.services', [])
   return {
     get: function($scope, $http, $gameId) {
       $http.get(HOST_API + '/game/' + $gameId).success(function(game) {
-        game.date = formatDate(game.date);
+        getJogadores($http, function(jogadores) {
+          game.date = formatDate(game.date);
+          $scope.game = game;
 
-        $scope.game = game;
-
-        $("#loading-game").addClass("hide");
+          $("#loading-game").addClass("hide");  
+        });
       });
-    },
-    all: function($scope, $http) {
-      $http.get(HOST_API + '/games').success(function(data) {
-        if(data[0] && !data[0]._id) {
-          data = [];
-        }
-
-        for(var i in data) {
-            data[i].date = formatDate(data[i].date);  
-        }  
-
-        $scope.games = data;
-
-        $("#loading-games").addClass("hide");
-      }).finally(function() {
-        $scope.$broadcast('scroll.refreshComplete')
-     });
-    },
-    allJogadores: function($scope, $http) {
-      $http.get(HOST_API + '/players').success(function(data) {
-        for(var i in data) {
-          data[i].checked = false;
-        }
-
-        $scope.jogadores = data;
-
-        $("#loading-players").addClass("hide");
-      }).finally(function() {
-        $scope.$broadcast('scroll.refreshComplete')
-     });      
     },
     saveInformation: function($key, $value) {
       gameData[$key] = $value;
@@ -67,6 +38,36 @@ angular.module('starter.services', [])
       $http.delete(HOST_API + '/game/' + $game._id).then(function() {
         $state.reload("tab.game");
       });
+    },
+    all: function($scope, $http) {
+      $http.get(HOST_API + '/games').success(function(data) {
+        if(data[0] && !data[0]._id) {
+          data = [];
+        }
+
+        for(var i in data) {
+            data[i].date = formatDate(data[i].date);  
+        }  
+
+        $scope.games = data;
+
+        $("#loading-games").addClass("hide");
+      }).finally(function() {
+        $scope.$broadcast('scroll.refreshComplete');
+     });
+    },
+    allJogadores: function($scope, $http) {
+      getJogadores($http, function(jogadores) {
+        for(var i in jogadores) {
+          jogadores[i].checked = false;
+        }
+
+        $scope.jogadores = jogadores;
+
+        $("#loading-players").addClass("hide");
+      }, function() {
+        $scope.$broadcast('scroll.refreshComplete');
+     });
     },
     doScore: function($http, $scope, $state, callback, params) {
       $http.post(HOST_API + '/score', params).then(function(response) {
