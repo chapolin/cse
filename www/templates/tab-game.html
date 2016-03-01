@@ -5,7 +5,7 @@
     </center>
     <ion-refresher pulling-text="Recarregar Jogos" on-refresh="doRefresh()"></ion-refresher>
     <ion-list>
-      <ion-item class="item-remove-animate item-icon-right" ng-repeat="game in games" href="#/tab/game-details/{{game._id}}">
+      <ion-item class="item-remove-animate item-icon-right" ng-repeat="game in games" href="#/tab/game-details/{{game._id}}/1">
         <h2>{{game.versus}}</h2>
         <p>{{game.date}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>

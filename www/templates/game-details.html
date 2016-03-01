@@ -1,24 +1,22 @@
 <ion-view view-title="Jogos">
-  <ion-content>
+  <ion-content ng-controller="GameDetailsCtrl">
     <center>
       <ion-spinner icon="android" id="loading-game"></ion-spinner>
     </center>
     <div class="list card">
       <div class="item item-avatar">
         <img src="img/cse.png">
-        <h2>C.S.E x {{game.versus}}</h2>
-        <p>{{game.date}}</p>
+        <h2>C.S.E {{game.scoreOwn}} x {{scoreVersus}} {{game.versus}}</h2>
+        <p>{{formatDate(game.date, "games-details")}}</p>
       </div>
 
       <div class="item item-body">
         <h2>Local da partida: </h2>
         <p>{{game.place}}</p>
 
-        <h2>Jogadores: </h2>
-        <h3>asdasdsa</h3>
-        <h3>asdasdsa</h3>
-        <h3>asdasdsa</h3>
-        <h3>asdasdsa</h3>
+        <h2>Jogadores relacionados: </h2>
+        
+        <h3 ng-repeat="player in selectedsPlayers">{{player.name}}</h3>
       </div>
 
       <div class="item tabs tabs-secondary tabs-icon-left">

@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','ionic.service.core','ngCordova','ionic.service.push', 'starter.controllers', 'starter.services', 'cse.controller.register', 'factory.register'])
+angular.module('starter', ['ionic','ionic.service.core','ngCordova','ionic.service.push', 'starter.controllers', 'starter.services', 'cse.controller.register', 'cse.controller.game.defails', 'factory.register'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -71,11 +71,10 @@ angular.module('starter', ['ionic','ionic.service.core','ngCordova','ionic.servi
   })
 
   .state('tab.game-details', {
-    url: '/game-details/:gameId',
+    url: '/game-details/:gameId/:noCache',
     views: {
       'tab-game': {
-        templateUrl: 'templates/game-details.html',
-        controller: 'GameDetailsCtrl'
+        templateUrl: 'templates/game-details.html'
       }
     }
   })
@@ -108,7 +107,7 @@ angular.module('starter', ['ionic','ionic.service.core','ngCordova','ionic.servi
         controller: 'RegisterCtrl'
       }
     }
-  })
+  });
 
   $urlRouterProvider.otherwise('/tab/register');
 });

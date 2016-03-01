@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
 
 .controller('GameCtrl', function($scope, $http, $ionicPopup, $state, Game) {
   $scope.$on('$ionicView.enter', function() {
-    Game.all($scope, $http);
+    Game.allGames($scope, $http);
     Game.saveInformation("players", null);
     Game.saveInformation("match", null);
   });
@@ -14,7 +14,7 @@ angular.module('starter.controllers', [])
   };
 
   $scope.doRefresh = function() {
-    Game.all($scope, $http);
+    Game.allGames($scope, $http);
   };
 
   $scope.remove = function(game) {
@@ -34,13 +34,13 @@ angular.module('starter.controllers', [])
 
 .controller('GameStep1Ctrl', function($scope, $state, $http, $ionicPopup, Game) {
   $scope.$on('$ionicView.enter', function() {
-    Game.allJogadores($scope, $http);
+    Game.allPlayers($scope, $http);
 
     Game.saveInformation("players", null);
   });
 
   $scope.doRefresh = function() {
-    Game.allJogadores($scope, $http);
+    Game.allPlayers($scope, $http);
   };
 
   $scope.goGameStep2 = function(players) {
@@ -49,7 +49,7 @@ angular.module('starter.controllers', [])
     Game.saveInformation("players", players);
 
     for(var i in gameData.players) {
-      if(gameData.players[i].checked == true) {
+      if(gameData.players[i].checked === true) {
         isOk = true;
 
         break;
@@ -103,24 +103,20 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('GameDetailsCtrl', function($scope, $http, $stateParams, Game) {
-  Game.get($scope, $http, $stateParams.gameId);
-})
-
 .controller('ScoreCtrl', function($scope, $http, $ionicPopup, $state, $stateParams, Game) {  
   $scope.ownScore = true;
 
-  Game.allJogadores($scope, $http);
+  Game.allPlayers($scope, $http);
 
   $scope.doRefresh = function() {
-    Game.allJogadores($scope, $http);
+    Game.allPlayers($scope, $http);
   };
 
   $scope.doScore = function(players, ownScore) {
     var player = null, game = $stateParams.gameId;
 
     for(var i in players) {
-      if(players[i].checked == true) {
+      if(players[i].checked === true) {
         player = players[i]._id;
 
         break;
